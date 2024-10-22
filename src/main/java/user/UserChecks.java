@@ -16,7 +16,7 @@ public class UserChecks {
      * @return - токен авторизации
      */
     @Step("Проверка создания пользователя")
-    public String checkCreated(ValidatableResponse createdResponse) {
+    public String checkCreatedUser(ValidatableResponse createdResponse) {
         var body = createdResponse
                 .assertThat()
                 .statusCode(HTTP_OK)
@@ -49,7 +49,6 @@ public class UserChecks {
         assertEquals("Неверное тело ответа",Set.of("success", "message"), body.keySet());
         assertEquals("Не верный ответ в поле message","User already exists", body.get("message"));
         assertEquals("Поле success true",false, body.get("success"));
-
     }
 
     /**
@@ -74,7 +73,7 @@ public class UserChecks {
      * @return токен авторизации
      */
     @Step("Проверка авторизации пользователя")
-    public String checkLogIn(ValidatableResponse loginResponse) {
+    public String checkLogInUser(ValidatableResponse loginResponse) {
         var body = loginResponse
                 .assertThat()
                 .statusCode(HTTP_OK)
@@ -114,7 +113,7 @@ public class UserChecks {
      * @param createdResponseUpdate тело ответа на запрос обновления данных пользователя
      */
     @Step("Проверка обновления данных пользователя")
-    public void checkUpdateData(ValidatableResponse createdResponseUpdate) {
+    public void checkUpdateUserData(ValidatableResponse createdResponseUpdate) {
         var body = createdResponseUpdate
                 .assertThat()
                 .statusCode(HTTP_OK)
@@ -144,6 +143,5 @@ public class UserChecks {
         assertEquals("Неверное тело ответа", Set.of("success", "message"), body.keySet());
         assertEquals("Поле success true",false, body.get("success"));
         assertEquals("Не верный ответ в поле message","You should be authorised", body.get("message"));
-
     }
 }

@@ -78,7 +78,7 @@ public class UserClient extends Base {
      * @param userAutToken токен авторизации
      */
     @Step("Удаление пользователя")
-    public void delete(@Param(mode=HIDDEN)String userAutToken) {
+    public void deleteUser(@Param(mode=HIDDEN)String userAutToken) {
                 spec()
                 .auth().oauth2(userAutToken)
                 .when()

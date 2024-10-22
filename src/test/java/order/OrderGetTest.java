@@ -24,17 +24,17 @@ public class OrderGetTest {
     public void getListUserOrders() {
         var user = User.randomCreatedUser();
         ValidatableResponse createdResponse = client.createUser(user);
-        check.checkCreated(createdResponse);
+        check.checkCreatedUser(createdResponse);
 
         var userCredentials = UserCredentials.fromUserData(user);
         ValidatableResponse loginResponse = client.loginUser(userCredentials);
-        userAutToken = check.checkLogIn(loginResponse);
+        userAutToken = check.checkLogInUser(loginResponse);
 
         ingredients.listIngredients(order);
 
         orderClient.createOrderUserByAuthorization(userAutToken, order);
 
-        ValidatableResponse getOrdersResponse = orderClient.getAllUserOrders(userAutToken);
+        ValidatableResponse getOrdersResponse = orderClient.getAllUserOrdersWithAuthorization(userAutToken);
         orderChecks.checkGetListUserOrders(getOrdersResponse);
     }
 
@@ -43,7 +43,7 @@ public class OrderGetTest {
     public void getListUserOrdersWithoutAuthorization() {
         var user = User.randomCreatedUser();
         ValidatableResponse createdResponse = client.createUser(user);
-        userAutToken = check.checkCreated(createdResponse);
+        userAutToken = check.checkCreatedUser(createdResponse);
 
         ingredients.listIngredients(order);
 
@@ -58,6 +58,6 @@ public class OrderGetTest {
     @DisplayName("Удаление пользователя")
     public void deleteUser() {
         if (userAutToken != null)
-            client.delete(StringUtils.substringAfter(userAutToken, " "));
+            client.deleteUser(StringUtils.substringAfter(userAutToken, " "));
     }
 }

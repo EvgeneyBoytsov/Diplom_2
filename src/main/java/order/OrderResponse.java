@@ -2,7 +2,6 @@ package order;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
 import java.util.List;
 
 /**
@@ -16,5 +15,4 @@ public class OrderResponse {
     private String total;
     private String totalToday;
     private List<Order> orders;
-
 }

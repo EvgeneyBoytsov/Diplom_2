@@ -13,10 +13,10 @@ public class OrderChecks {
 
     /**
      * Метод для проверки ответа на запрос создания заказа
-     * @param orderResponse - тело ответа на создание заказа авторизованного пользователя
+     * @param orderResponse - тело ответа на создание заказа авторизованным пользователем
      */
-    @Step("Проверка создания заказа")
-    public void checkCreateOrder(ValidatableResponse orderResponse) {
+    @Step("Проверка создания заказа авторизованным пользователем")
+    public void checkCreateOrderWithAuthorization(ValidatableResponse orderResponse) {
         var body = orderResponse
                 .assertThat()
                 .statusCode(HTTP_OK)
@@ -29,12 +29,12 @@ public class OrderChecks {
 
         Map<String, String> order = (Map<String, String>) body.get("order");
         assertEquals("Неверное тело ответа", Set.of("number"), order.keySet());
-        assertNotEquals("Поле number пустое",null,order.get("number"));
+        assertNotEquals("Поле number пустое",null, order.get("number"));
     }
 
     /**
      * Метод для проверки ответа на запрос создания заказа без добавления ингредиентов
-     * @param orderResponse - тело ответа на создание заказа авторизованного пользователя без ингредиентов
+     * @param orderResponse - тело ответа на создание заказа без ингредиентов авторизованным пользователем
      */
     @Step("Проверка создания заказа без ингредиентов")
     public void checkCreateOrderWithoutIngredients(ValidatableResponse orderResponse) {
@@ -50,8 +50,7 @@ public class OrderChecks {
 
     /**
      * Метод для проверки ответа на запрос создания заказа с несуществующим ингредиентом
-     * @param orderResponse - тело ответа на создание заказа авторизованного пользователя
-     *                      с несуществующим ингредиентом
+     * @param orderResponse - тело ответа на создание заказа с несуществующим ингредиентом авторизованного пользователя
      */
     @Step("Проверка создания заказа с невалидным хэшом ингредиента")
     public void checkCreateInvalidedIngredients(ValidatableResponse orderResponse) {
@@ -60,6 +59,10 @@ public class OrderChecks {
                 .statusCode(HTTP_INTERNAL_ERROR);
     }
 
+    /**
+     * Метод для проверки ответа на запрос создания заказа неавторизованным пользователем
+     * @param orderResponse - тело ответа на создание заказа неавторизованным пользователем
+     */
     @Step("Проверка создания заказа без авторизации пользователя")
     public void checkCreateOrderWithoutAuthorization(ValidatableResponse orderResponse) {
         orderResponse
@@ -108,6 +111,5 @@ public class OrderChecks {
         assertEquals("Неверное тело ответа", Set.of("success", "message"), body.keySet());
         assertEquals("Поле success true",false, body.get("success"));
         assertEquals("Неверное тело ответа","You should be authorised", body.get("message"));
-
     }
 }

@@ -76,7 +76,7 @@ public class OrderClient extends Base {
      * @return - тело запроса на получение заказов авторизованного пользователя
      */
     @Step("Получения списка всех заказов авторизованного пользователя")
-    public ValidatableResponse getAllUserOrders(@Param(mode=HIDDEN)String autToken) {
+    public ValidatableResponse getAllUserOrdersWithAuthorization(@Param(mode=HIDDEN)String autToken) {
         return
                 specGet()
                 .header("Authorization",autToken)

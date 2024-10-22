@@ -17,22 +17,22 @@ public class UserUpdateDataTest {
     public void checkUpdateDataUserWithAuthorization() {
         User user = defaultUser;
         ValidatableResponse createdResponse = client.createUser(user);
-        check.checkCreated(createdResponse);
+        check.checkCreatedUser(createdResponse);
 
         var userCredentials = UserCredentials.fromUserData(user);
         ValidatableResponse loginResponse = client.loginUser(userCredentials);
-        userAutToken = check.checkLogIn(loginResponse);
+        userAutToken = check.checkLogInUser(loginResponse);
 
         User userUpdate = defaultUser.clone();
         userUpdate.setEmail("test-updatedata@yandex.ru");
         userUpdate.setName("123456");
 
         ValidatableResponse createdResponseUpdate = client.updateUserData(userAutToken,userUpdate);
-        check.checkUpdateData(createdResponseUpdate);
+        check.checkUpdateUserData(createdResponseUpdate);
 
         var autUpdate = UserCredentials.fromUserData(userUpdate);
         ValidatableResponse loginResponseUpdate = client.loginUser(autUpdate);
-        userAutToken = check.checkLogIn(loginResponseUpdate);
+        userAutToken = check.checkLogInUser(loginResponseUpdate);
     }
 
     @Test
@@ -40,21 +40,21 @@ public class UserUpdateDataTest {
     public void checkUpdateEmailUser() {
         User user = defaultUser;
         ValidatableResponse createdResponse = client.createUser(user);
-        check.checkCreated(createdResponse);
+        check.checkCreatedUser(createdResponse);
 
         var userCredentials = UserCredentials.fromUserData(user);
         ValidatableResponse loginResponse = client.loginUser(userCredentials);
-        userAutToken = check.checkLogIn(loginResponse);
+        userAutToken = check.checkLogInUser(loginResponse);
 
         User userUpdate = defaultUser.clone();
         userUpdate.setEmail("test-updatedata@yandex.ru");
 
         ValidatableResponse createdResponseUpdate = client.updateUserData(userAutToken,userUpdate);
-        check.checkUpdateData(createdResponseUpdate);
+        check.checkUpdateUserData(createdResponseUpdate);
 
         var autUpdate = UserCredentials.fromUserData(userUpdate);
         ValidatableResponse loginResponseUpdate = client.loginUser(autUpdate);
-        userAutToken = check.checkLogIn(loginResponseUpdate);
+        userAutToken = check.checkLogInUser(loginResponseUpdate);
     }
 
     @Test
@@ -62,21 +62,21 @@ public class UserUpdateDataTest {
     public void checkUpdateNameUser() {
         User user = defaultUser;
         ValidatableResponse createdResponse = client.createUser(user);
-        check.checkCreated(createdResponse);
+        check.checkCreatedUser(createdResponse);
 
         var userCredentials = UserCredentials.fromUserData(user);
         ValidatableResponse loginResponse = client.loginUser(userCredentials);
-        userAutToken = check.checkLogIn(loginResponse);
+        userAutToken = check.checkLogInUser(loginResponse);
 
         User userUpdate = defaultUser.clone();
         userUpdate.setName("123456");
 
         ValidatableResponse createdResponseUpdate = client.updateUserData(userAutToken,userUpdate);
-        check.checkUpdateData(createdResponseUpdate);
+        check.checkUpdateUserData(createdResponseUpdate);
 
         var autUpdate = UserCredentials.fromUserData(userUpdate);
         ValidatableResponse loginResponseUpdate = client.loginUser(autUpdate);
-        userAutToken = check.checkLogIn(loginResponseUpdate);
+        userAutToken = check.checkLogInUser(loginResponseUpdate);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class UserUpdateDataTest {
     public void checkUpdateDataUserWithoutLogin() {
         User user = defaultUser;
         ValidatableResponse createdResponse = client.createUser(user);
-        userAutToken = check.checkCreated(createdResponse);
+        userAutToken = check.checkCreatedUser(createdResponse);
 
         User userUpdate = defaultUser.clone();
         userUpdate.setEmail("test-updatedata@yandex.ru");
@@ -97,6 +97,6 @@ public class UserUpdateDataTest {
     @DisplayName("Удаление пользователя")
     public void deleteUser() {
         if (userAutToken != null)
-            client.delete(StringUtils.substringAfter(userAutToken, " "));
+            client.deleteUser(StringUtils.substringAfter(userAutToken, " "));
     }
 }

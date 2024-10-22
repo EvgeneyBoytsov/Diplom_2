@@ -17,7 +17,7 @@ public class UserCreatedTest {
     @DisplayName("Создание пользователя")
     public void userCreated() {
         ValidatableResponse createdResponse = client.createUser(defaultUser);
-        userAutToken= check.checkCreated(createdResponse);
+        userAutToken = check.checkCreatedUser(createdResponse);
     }
 
     @Test
@@ -94,6 +94,6 @@ public class UserCreatedTest {
     @DisplayName("Удаление пользователя")
     public void deleteUser() {
         if (userAutToken != null)
-            client.delete(StringUtils.substringAfter(userAutToken, " "));
+            client.deleteUser(StringUtils.substringAfter(userAutToken, " "));
     }
 }

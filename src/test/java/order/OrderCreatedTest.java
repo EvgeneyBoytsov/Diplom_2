@@ -25,16 +25,16 @@ public class OrderCreatedTest {
     public void createdOrderWithAuthorization() {
         var user = User.randomCreatedUser();
         ValidatableResponse createdResponse = client.createUser(user);
-        check.checkCreated(createdResponse);
+        check.checkCreatedUser(createdResponse);
 
         var userCredentials = UserCredentials.fromUserData(user);
         ValidatableResponse loginResponse = client.loginUser(userCredentials);
-        userAutToken = check.checkLogIn(loginResponse);
+        userAutToken = check.checkLogInUser(loginResponse);
 
         ingredients.listIngredients(order);
 
         ValidatableResponse orderResponse = orderClient.createOrderUserByAuthorization(userAutToken, order);
-        orderChecks.checkCreateOrder(orderResponse);
+        orderChecks.checkCreateOrderWithAuthorization(orderResponse);
     }
 
     @Test
@@ -42,11 +42,11 @@ public class OrderCreatedTest {
     public void createdOrderWithInvalidedIngredients() {
         var user = User.randomCreatedUser();
         ValidatableResponse createdResponse = client.createUser(user);
-        check.checkCreated(createdResponse);
+        check.checkCreatedUser(createdResponse);
 
         var userCredentials = UserCredentials.fromUserData(user);
         ValidatableResponse loginResponse = client.loginUser(userCredentials);
-        userAutToken = check.checkLogIn(loginResponse);
+        userAutToken = check.checkLogInUser(loginResponse);
 
         ingredients.changedListIngredients(order);
 
@@ -59,11 +59,11 @@ public class OrderCreatedTest {
     public void createdOrderWithoutIngredients() {
         var user = User.randomCreatedUser();
         ValidatableResponse createdResponse = client.createUser(user);
-        check.checkCreated(createdResponse);
+        check.checkCreatedUser(createdResponse);
 
         var userCredentials = UserCredentials.fromUserData(user);
         ValidatableResponse loginResponse = client.loginUser(userCredentials);
-        userAutToken = check.checkLogIn(loginResponse);
+        userAutToken = check.checkLogInUser(loginResponse);
 
         ValidatableResponse orderResponse = orderClient.createOrderWithoutIngredients(userAutToken);
         orderChecks.checkCreateOrderWithoutIngredients(orderResponse);
@@ -74,7 +74,7 @@ public class OrderCreatedTest {
     public void createdOrderWithoutAuthorization() {
         var user = User.randomCreatedUser();
         ValidatableResponse createdResponse = client.createUser(user);
-        userAutToken = check.checkCreated(createdResponse);
+        userAutToken = check.checkCreatedUser(createdResponse);
 
         ingredients.listIngredients(order);
 
@@ -86,6 +86,6 @@ public class OrderCreatedTest {
     @DisplayName("Удаление пользователя")
     public void deleteUser() {
         if (userAutToken != null)
-            client.delete(StringUtils.substringAfter(userAutToken, " "));
+            client.deleteUser(StringUtils.substringAfter(userAutToken, " "));
     }
 }

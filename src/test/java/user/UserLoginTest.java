@@ -18,11 +18,11 @@ public class UserLoginTest {
     public void userLogin() {
         var user = User.randomCreatedUser();
         ValidatableResponse createdResponse = client.createUser(user);
-        check.checkCreated(createdResponse);
+        check.checkCreatedUser(createdResponse);
 
         var userCredentials = UserCredentials.fromUserData(user);
         ValidatableResponse loginResponse = client.loginUser(userCredentials);
-        userAutToken = check.checkLogIn(loginResponse);
+        userAutToken = check.checkLogInUser(loginResponse);
     }
 
     @Test
@@ -30,7 +30,7 @@ public class UserLoginTest {
     public void userLoginWrongEmail() {
         User user = defaultUser;
         ValidatableResponse createResponse = client.createUser(user);
-        userAutToken = check.checkCreated(createResponse);
+        userAutToken = check.checkCreatedUser(createResponse);
 
         UserCredentials credentials = defaultCredentials.clone();
         credentials.setEmail("Ma");
@@ -45,7 +45,7 @@ public class UserLoginTest {
     public void userLoginWrongPassword() {
         User user = defaultUser;
         ValidatableResponse createResponse = client.createUser(user);
-        userAutToken = check.checkCreated(createResponse);
+        userAutToken = check.checkCreatedUser(createResponse);
 
         UserCredentials credentials = defaultCredentials.clone();
         credentials.setEmail("logintest@yandex.ru");
@@ -59,6 +59,6 @@ public class UserLoginTest {
     @DisplayName("Удаление пользователя")
     public void deleteUser() {
         if (userAutToken != null)
-            client.delete(StringUtils.substringAfter(userAutToken, " "));
+            client.deleteUser(StringUtils.substringAfter(userAutToken, " "));
     }
 }
