@@ -10,7 +10,7 @@ public class Ingredients {
      * Добавление ингредиентов в список
      * @param order - список ингредиентов
      */
-    public void listIngredients(Order order) {
+    public void initIngredients(Order order) {
         ValidatableResponse ingredientsList = orderClient.getAllIngredients();
         List<String> list = ingredientsList.extract().path("data._id");
 
@@ -23,7 +23,7 @@ public class Ingredients {
      * Добавление ингредиентов в список с неверным хэшом
      * @param order - список ингредиентов
      */
-    public void changedListIngredients(Order order) {
+    public void changeIngredients(Order order) {
         ValidatableResponse response = orderClient.getAllIngredients();
         List<String> list = response.extract().path("data._id");
 

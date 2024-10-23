@@ -17,7 +17,7 @@ public class UserUpdateDataTest {
     public void checkUpdateDataUserWithAuthorization() {
         User user = defaultUser;
         ValidatableResponse createdResponse = client.createUser(user);
-        check.checkCreatedUser(createdResponse);
+        check.checkCreateUser(createdResponse);
 
         var userCredentials = UserCredentials.fromUserData(user);
         ValidatableResponse loginResponse = client.loginUser(userCredentials);
@@ -40,7 +40,7 @@ public class UserUpdateDataTest {
     public void checkUpdateEmailUser() {
         User user = defaultUser;
         ValidatableResponse createdResponse = client.createUser(user);
-        check.checkCreatedUser(createdResponse);
+        check.checkCreateUser(createdResponse);
 
         var userCredentials = UserCredentials.fromUserData(user);
         ValidatableResponse loginResponse = client.loginUser(userCredentials);
@@ -62,7 +62,7 @@ public class UserUpdateDataTest {
     public void checkUpdateNameUser() {
         User user = defaultUser;
         ValidatableResponse createdResponse = client.createUser(user);
-        check.checkCreatedUser(createdResponse);
+        check.checkCreateUser(createdResponse);
 
         var userCredentials = UserCredentials.fromUserData(user);
         ValidatableResponse loginResponse = client.loginUser(userCredentials);
@@ -84,7 +84,7 @@ public class UserUpdateDataTest {
     public void checkUpdateDataUserWithoutLogin() {
         User user = defaultUser;
         ValidatableResponse createdResponse = client.createUser(user);
-        userAutToken = check.checkCreatedUser(createdResponse);
+        userAutToken = check.checkCreateUser(createdResponse);
 
         User userUpdate = defaultUser.clone();
         userUpdate.setEmail("test-updatedata@yandex.ru");

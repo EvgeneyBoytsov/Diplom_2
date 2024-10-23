@@ -21,16 +21,16 @@ public class OrderGetTest {
 
     @Test
     @DisplayName("Получение списка заказов авторизованного пользователя")
-    public void getListUserOrders() {
-        var user = User.randomCreatedUser();
+    public void checkGetUserOrders() {
+        var user = User.randomCreateUser();
         ValidatableResponse createdResponse = client.createUser(user);
-        check.checkCreatedUser(createdResponse);
+        check.checkCreateUser(createdResponse);
 
         var userCredentials = UserCredentials.fromUserData(user);
         ValidatableResponse loginResponse = client.loginUser(userCredentials);
         userAutToken = check.checkLogInUser(loginResponse);
 
-        ingredients.listIngredients(order);
+        ingredients.initIngredients(order);
 
         orderClient.createOrderUserByAuthorization(userAutToken, order);
 
@@ -40,12 +40,12 @@ public class OrderGetTest {
 
     @Test
     @DisplayName("Получение списка заказов неавторизованного пользователя")
-    public void getListUserOrdersWithoutAuthorization() {
-        var user = User.randomCreatedUser();
+    public void checkGetUserOrdersWithoutAuthorization() {
+        var user = User.randomCreateUser();
         ValidatableResponse createdResponse = client.createUser(user);
-        userAutToken = check.checkCreatedUser(createdResponse);
+        userAutToken = check.checkCreateUser(createdResponse);
 
-        ingredients.listIngredients(order);
+        ingredients.initIngredients(order);
 
         ValidatableResponse orderResponse = orderClient.createOrderUserWithoutAuthorization(order);
         orderChecks.checkCreateOrderWithoutAuthorization(orderResponse);

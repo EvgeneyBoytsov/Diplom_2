@@ -11,18 +11,18 @@ public class UserCreatedTest {
     private final UserClient client = new UserClient();
     private final UserChecks check = new UserChecks();
     String userAutToken;
-    User defaultUser = User.randomCreatedUser();
+    User defaultUser = User.randomCreateUser();
 
     @Test
     @DisplayName("Создание пользователя")
-    public void userCreated() {
+    public void checkCreateUser() {
         ValidatableResponse createdResponse = client.createUser(defaultUser);
-        userAutToken = check.checkCreatedUser(createdResponse);
+        userAutToken = check.checkCreateUser(createdResponse);
     }
 
     @Test
     @DisplayName("Создание пользователя с пустым полем Email")
-    public void createdUserWithoutEmail() {
+    public void checkCreateUserWithoutEmail() {
         var user = defaultUser.clone();
         user.setEmail("");
 
@@ -32,7 +32,7 @@ public class UserCreatedTest {
 
     @Test
     @DisplayName("Создание пользователя без поля Email")
-    public void createdUserNullEmail() {
+    public void checkCreateUserNullEmail() {
         var user = defaultUser.clone();
         user.setEmail(null);
 
@@ -42,7 +42,7 @@ public class UserCreatedTest {
 
     @Test
     @DisplayName("Создание пользователя с пустым полем Password")
-    public void createdUserWithoutPassword() {
+    public void checkCreateUserWithoutPassword() {
         var user = defaultUser.clone();
         user.setPassword("");
 
@@ -52,7 +52,7 @@ public class UserCreatedTest {
 
     @Test
     @DisplayName("Создание пользователя без поля Password")
-    public void createdUserNullPassword() {
+    public void checkCreateUserNullPassword() {
         var user = defaultUser.clone();
         user.setPassword(null);
 
@@ -62,7 +62,7 @@ public class UserCreatedTest {
 
     @Test
     @DisplayName("Создание пользователя с пустым полем Name")
-    public void createdUserWithoutName() {
+    public void checkCreateUserWithoutName() {
         var user = defaultUser.clone();
         user.setName("");
 
@@ -72,7 +72,7 @@ public class UserCreatedTest {
 
     @Test
     @DisplayName("Создание пользователя без поля Name")
-    public void createdUserNullName() {
+    public void checkCreateUserNullName() {
         var user = defaultUser.clone();
         user.setName(null);
 
@@ -82,12 +82,12 @@ public class UserCreatedTest {
 
     @Test
     @DisplayName("Создание дубликата пользователя")
-    public void createdUserDuplicate() {
-        var user = User.randomCreatedUser();
-        client.createUser(user);
+    public void checkCreateUserDuplicate() {
+        ValidatableResponse createdResponse = client.createUser(defaultUser);
+        userAutToken = check.checkCreateUser(createdResponse);
 
-        ValidatableResponse createdResponse = client.createUser(user);
-        check.checkRequestWithDuplicateUserData(createdResponse);
+        ValidatableResponse createdResponseDuplicate = client.createUser(defaultUser);
+        check.checkRequestWithDuplicateUserData(createdResponseDuplicate);
     }
 
     @After

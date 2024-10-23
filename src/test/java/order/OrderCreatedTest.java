@@ -22,16 +22,16 @@ public class OrderCreatedTest {
 
     @Test
     @DisplayName("Создание заказа авторизированным пользователем")
-    public void createdOrderWithAuthorization() {
-        var user = User.randomCreatedUser();
+    public void checkCreateOrderWithAuthorization() {
+        var user = User.randomCreateUser();
         ValidatableResponse createdResponse = client.createUser(user);
-        check.checkCreatedUser(createdResponse);
+        check.checkCreateUser(createdResponse);
 
         var userCredentials = UserCredentials.fromUserData(user);
         ValidatableResponse loginResponse = client.loginUser(userCredentials);
         userAutToken = check.checkLogInUser(loginResponse);
 
-        ingredients.listIngredients(order);
+        ingredients.initIngredients(order);
 
         ValidatableResponse orderResponse = orderClient.createOrderUserByAuthorization(userAutToken, order);
         orderChecks.checkCreateOrderWithAuthorization(orderResponse);
@@ -39,16 +39,16 @@ public class OrderCreatedTest {
 
     @Test
     @DisplayName("Создание заказа с невалидным ингредиентом")
-    public void createdOrderWithInvalidedIngredients() {
-        var user = User.randomCreatedUser();
+    public void checkCreateOrderWithInvalidedIngredients() {
+        var user = User.randomCreateUser();
         ValidatableResponse createdResponse = client.createUser(user);
-        check.checkCreatedUser(createdResponse);
+        check.checkCreateUser(createdResponse);
 
         var userCredentials = UserCredentials.fromUserData(user);
         ValidatableResponse loginResponse = client.loginUser(userCredentials);
         userAutToken = check.checkLogInUser(loginResponse);
 
-        ingredients.changedListIngredients(order);
+        ingredients.changeIngredients(order);
 
         ValidatableResponse orderResponse = orderClient.createOrderUserByAuthorization(userAutToken, order);
         orderChecks.checkCreateInvalidedIngredients(orderResponse);
@@ -56,10 +56,10 @@ public class OrderCreatedTest {
 
     @Test
     @DisplayName("Создание заказа без ингредиентов")
-    public void createdOrderWithoutIngredients() {
-        var user = User.randomCreatedUser();
+    public void checkCreateOrderWithoutIngredients() {
+        var user = User.randomCreateUser();
         ValidatableResponse createdResponse = client.createUser(user);
-        check.checkCreatedUser(createdResponse);
+        check.checkCreateUser(createdResponse);
 
         var userCredentials = UserCredentials.fromUserData(user);
         ValidatableResponse loginResponse = client.loginUser(userCredentials);
@@ -71,12 +71,12 @@ public class OrderCreatedTest {
 
     @Test
     @DisplayName("Создание заказа без авторизации")
-    public void createdOrderWithoutAuthorization() {
-        var user = User.randomCreatedUser();
+    public void checkCreateOrderWithoutAuthorization() {
+        var user = User.randomCreateUser();
         ValidatableResponse createdResponse = client.createUser(user);
-        userAutToken = check.checkCreatedUser(createdResponse);
+        userAutToken = check.checkCreateUser(createdResponse);
 
-        ingredients.listIngredients(order);
+        ingredients.initIngredients(order);
 
         ValidatableResponse orderResponse = orderClient.createOrderUserWithoutAuthorization(order);
         orderChecks.checkCreateOrderWithoutAuthorization(orderResponse);

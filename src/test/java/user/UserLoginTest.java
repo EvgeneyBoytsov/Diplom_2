@@ -15,10 +15,10 @@ public class UserLoginTest {
 
     @Test
     @DisplayName("Авторизация пользователя")
-    public void userLogin() {
-        var user = User.randomCreatedUser();
+    public void checkLoginUser() {
+        var user = User.randomCreateUser();
         ValidatableResponse createdResponse = client.createUser(user);
-        check.checkCreatedUser(createdResponse);
+        check.checkCreateUser(createdResponse);
 
         var userCredentials = UserCredentials.fromUserData(user);
         ValidatableResponse loginResponse = client.loginUser(userCredentials);
@@ -27,10 +27,10 @@ public class UserLoginTest {
 
     @Test
     @DisplayName("Авторизация пользователя с неверным полем Email")
-    public void userLoginWrongEmail() {
+    public void checkLoginUserWithWrongEmail() {
         User user = defaultUser;
         ValidatableResponse createResponse = client.createUser(user);
-        userAutToken = check.checkCreatedUser(createResponse);
+        userAutToken = check.checkCreateUser(createResponse);
 
         UserCredentials credentials = defaultCredentials.clone();
         credentials.setEmail("Ma");
@@ -42,10 +42,10 @@ public class UserLoginTest {
 
     @Test
     @DisplayName("Авторизация пользователя с неверным полем Password")
-    public void userLoginWrongPassword() {
+    public void checkLoginUserWithWrongPassword() {
         User user = defaultUser;
         ValidatableResponse createResponse = client.createUser(user);
-        userAutToken = check.checkCreatedUser(createResponse);
+        userAutToken = check.checkCreateUser(createResponse);
 
         UserCredentials credentials = defaultCredentials.clone();
         credentials.setEmail("logintest@yandex.ru");

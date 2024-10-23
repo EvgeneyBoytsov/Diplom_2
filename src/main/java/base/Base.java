@@ -12,6 +12,7 @@ public class Base {
 
     /**
      * Спецификация для POST запросов работы с пользователями
+     *
      * @return общая часть запросов для работы с пользователями
      */
     public RequestSpecification spec() {
@@ -23,6 +24,7 @@ public class Base {
 
     /**
      * Спецификация для POST запросов работы с заказами
+     *
      * @return общая часть запросов для работы с заказами
      */
     public RequestSpecification specOrder() {
@@ -34,6 +36,7 @@ public class Base {
 
     /**
      * Спецификация для GET запросов
+     *
      * @return общая часть GET запросов
      */
     public RequestSpecification specGet() {

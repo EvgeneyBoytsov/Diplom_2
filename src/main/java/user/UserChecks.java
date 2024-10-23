@@ -16,7 +16,7 @@ public class UserChecks {
      * @return - токен авторизации
      */
     @Step("Проверка создания пользователя")
-    public String checkCreatedUser(ValidatableResponse createdResponse) {
+    public String checkCreateUser(ValidatableResponse createdResponse) {
         var body = createdResponse
                 .assertThat()
                 .statusCode(HTTP_OK)

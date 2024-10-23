@@ -15,7 +15,7 @@ public class User implements Cloneable {
      * Создание пользователя с рандомными данными
      * @return нового пользователя
      */
-    public static User randomCreatedUser() {
+    public static User randomCreateUser() {
         String email = RandomStringUtils.randomAlphanumeric(5,10) + "-data@yandex.ru";
         String password = RandomStringUtils.randomAlphanumeric(5,10);
         String name = RandomStringUtils.randomAlphanumeric(5,10);

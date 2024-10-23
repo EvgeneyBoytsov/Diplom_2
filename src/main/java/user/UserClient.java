@@ -9,7 +9,7 @@ import static io.qameta.allure.model.Parameter.Mode.HIDDEN;
 public class UserClient extends Base {
     public static final String API_AUTH = "/login";
     public static final String API_REG = "/register";
-    public static final String API_DATA = "/user";
+    public static final String API_USER = "/user";
 
     /**
      * Запрос на создание пользователя
@@ -39,7 +39,7 @@ public class UserClient extends Base {
                 .header("Authorization",autToken)
                 .body(user)
                 .when()
-                .patch(API_DATA)
+                .patch(API_USER)
                 .then().log().all();
     }
 
@@ -54,7 +54,7 @@ public class UserClient extends Base {
                 spec()
                 .body(user)
                 .when()
-                .patch(API_DATA)
+                .patch(API_USER)
                 .then().log().all();
     }
 
@@ -82,7 +82,7 @@ public class UserClient extends Base {
                 spec()
                 .auth().oauth2(userAutToken)
                 .when()
-                .delete(API_DATA)
+                .delete(API_USER)
                 .then().log().all();
     }
 }
